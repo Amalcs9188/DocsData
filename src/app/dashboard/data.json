@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "patientName": "Ava Thompson",
+    "appointmentType": "General Checkup",
+    "status": "Pending",
+    "appointmentDate": "2025-07-12",
+    "assignedDoctor": "Dr. Eddie Lake"
+  },
+  {
+    "id": 2,
+    "patientName": "Liam Rodriguez",  
+    "appointmentType": "Routine Exam",
+    "status": "Done",
+    "appointmentDate": "2025-07-13",
+    "assignedDoctor": "Dr. Eddie Lake"
+  },
+  {
+    "id": 3,
+    "patientName": "Noah Patel",
+    "appointmentType": "Follow-up",
+    "status": "Done",
+    "appointmentDate": "2025-07-13",
+    "assignedDoctor": "Dr. Eddie Lake"
+  },
+  {
+    "id": 4,
+    "patientName": "Sophia Kim",
+    "appointmentType": "Specialist Consultation",
+    "status": "Done",
+    "appointmentDate": "2025-07-14",
+    "assignedDoctor": "Dr. Jamik Tashpulatov"
+  },
+  {
+    "id": 5,
+    "patientName": "Ethan Davis",
+    "appointmentType": "Dermatology",
+    "status": "Pending",
+    "appointmentDate": "2025-07-14",
+    "assignedDoctor": "Dr. Jamik Tashpulatov"
+  },
+  {
+    "id": 6,
+    "patientName": "Isabella Ahmed",
+    "appointmentType": "Pediatrics",
+    "status": "Pending",
+    "appointmentDate": "2025-07-15",
+    "assignedDoctor": "Dr. Jamik Tashpulatov"
+  },
+  {
+    "id": 7,
+    "patientName": "James Lee",
+    "appointmentType": "Orthopedics",
+    "status": "Pending",
+    "appointmentDate": "2025-07-15",
+    "assignedDoctor": "Dr. Jamik Tashpulatov"
+  },
+  {
+    "id": 8,
+    "patientName": "Mia Nguyen",
+    "appointmentType": "ENT Consultation",
+    "status": "Done",
+    "appointmentDate": "2025-07-16",
+    "assignedDoctor": "Dr. Olivia Stone"
+  },
+  {
+    "id": 9,
+    "patientName": "Benjamin Walker",
+    "appointmentType": "Cardiology",
+    "status": "Done",
+    "appointmentDate": "2025-07-16",
+    "assignedDoctor": "Dr. Olivia Stone"
+  },
+  {
+    "id": 10,
+    "patientName": "Charlotte Smith",
+    "appointmentType": "Neurology",
+    "status": "Done",
+    "appointmentDate": "2025-07-17",
+    "assignedDoctor": "Dr. Olivia Stone"
+  }
+]
