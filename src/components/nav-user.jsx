@@ -37,11 +37,8 @@ export function NavUser({
             <SidebarMenuButton
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-              <Avatar className="h-8 w-8 rounded-lg grayscale">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                
-              </Avatar>
-              <div onClick={() => { Cookies.remove("token"); window.location.reload(); }} className="grid flex-1 text-left text-sm leading-tight">
+             
+              <div onClick={() => { Cookies.remove("token"); window.location.reload(); }} className=" flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium flex items-center gap-2"><IconLogout />
                   Log out</span>
                 <span className="text-muted-foreground truncate text-xs">
