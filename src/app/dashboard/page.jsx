@@ -15,7 +15,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { SearchableSelect } from "@/components/searchableselect";
 import { Button } from "@/components/ui/button";
@@ -34,9 +33,10 @@ import {
 import { Calendar24 } from "@/components/Calendar24";
 
 export default function Page() {
-  const [open, setopen] = useState();
-  const [selectedRow, setSelectedRow] = useState(null);
-  const { Data_Items, setData_Items, localClear } = useDocContext();
+
+
+  const { Data_Items, mbId, localClear, onSubmitData, selectedRow, setSelectedRow, open, setopen } = useDocContext();
+
 
   const Data = z.object({
     date: z.string().min(1, "Date is required"),
@@ -77,45 +77,28 @@ export default function Page() {
     }
   }
 
-  console.log(form.watch("time"));
+const handleMbSet =(id)=>{
+ console.log(id);
+    const row = Data_Items.find((item) => item.id === id);
+    console.log("row", row);
 
-  const onSubmit = (data) => {
-    const { patientName, assignedDoctor } = data;
-    console.log(data);
+    setSelectedRow(row);
+    if (row) {
+      form.setValue("date", row.date);
+      form.setValue("patientName", row.patientName);
+      form.setValue("assignedDoctor", row.assignedDoctor);
+      form.setValue("status", row.status);
+      form.setValue("time", row.time);
 
-    const p_name = patientItems.find((item) => item.id == patientName);
-    const doc_name = DoctorNames.find((item) => item.id == assignedDoctor);
 
-    if (selectedRow) {
-      const updatedData = {
-        ...data,
-        patientName: p_name?.name ?? patientName,
-        assignedDoctor: doc_name?.name ?? assignedDoctor,
-      };
-
-      const updatedItems = Data_Items.map((item) =>
-        item.id === selectedRow.id ? { ...item, ...updatedData } : item
-      );
-
-      setData_Items(updatedItems);
-    } else {
-      const uniqueId =
-        Date.now().toString(36) + Math.random().toString(36).substring(2);
-
-      const newData = {
-        ...data,
-        id: uniqueId,
-        patientName: p_name?.name ?? data.patientName,
-        assignedDoctor: doc_name?.name ?? data.assignedDoctor,
-      };
-
-      setData_Items((prev) => [...prev, newData]);
     }
+}
 
-    setopen(false);
-    form.reset(defaultValues);
-    setSelectedRow(null);
-  };
+  console.log(form.watch("time"));
+  const onSubmit = (data) => {
+    onSubmitData(data)
+  }
+
 
 
   return (
@@ -136,9 +119,14 @@ export default function Page() {
                       const year = date.getFullYear();
                       const month = String(date.getMonth() + 1).padStart(2, '0');
                       const day = String(date.getDate()).padStart(2, '0');
-                      const localDate = `${year}-${month}-${day-1}`;
+                      const localDate = `${year}-${month}-${day - 1}`;
                       form.setValue("date", localDate);
                     }
+                  }}
+                  setValue={(data) => {
+                    form.setValue("patientName", data.patientName)
+                    form.setValue("assignedDoctor", data.assignedDoctor)
+                    setSelectedRow(data)
                   }}
 
 
@@ -148,9 +136,9 @@ export default function Page() {
                   }
                 />
               </div>
-              <button className="mt-2 underline text-blue-500" onClick={localClear}>clear</button>  
-              <div className="block md:hidden">
-                <MobileCalendar setOpen={setopen} />
+              <button className="mt-2 underline text-blue-500" onClick={localClear}>clear</button>
+              <div className="block md:hidden ">
+                <MobileCalendar handleMbSet={handleMbSet} setMyDate={(date) => { form.setValue("date", date) }} setOpen={setopen} />
               </div>
               <div className="px-4 lg:px-6"></div>
               {Data_Items.length > 0 && (

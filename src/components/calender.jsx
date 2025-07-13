@@ -22,19 +22,64 @@ const localizer = dateFnsLocalizer({
 })
 
 export const MyCalendar = (props) => {
-const {Data_Items} = useDocContext()
+  const { Data_Items } = useDocContext()
+  function getLocalDate(dateStr) {
+    const [year, month, day] = dateStr.split('-').map(Number);
+    return new Date(year, month - 1, day); // Local time, avoids UTC offset
+  }
 
-const myEventsList = Data_Items.map((item) => ({
-  ...item,
-  title: item.patientName,
-  name:item.time,
-  start: new Date(item.date),
-  end: new Date(item.date),
-}))
+  const myEventsList = Data_Items.map((item) => ({
+    ...item,
+    title: item.patientName,
+    name: item.time,
+    start: getLocalDate(item.date),
+    end: getLocalDate(item.date),
+  }))
   // select date
   const setOpen = props.setOpen
   const setMyDate = props.setMyDate
   const setEmpty = props.setEmpty
+  const setValue = props.setValue
+
+
+  const handeClick = (slotInfo) => {
+    if (slotInfo.end >= Date.now()) {
+      setOpen(true)
+    }
+    setMyDate(slotInfo.end)
+    setEmpty()
+  }
+
+  const handleView = (event) => {
+    console.log("Raw event:", event)
+    let selectedDate;
+    if (typeof event.date === 'string') {
+      const [year, month, day] = event.date.split('-').map(Number);
+      selectedDate = new Date(`${year}, ${month} , ${day + 1}`); // 
+    } else if (event.start instanceof Date) {
+      selectedDate = new Date(event.start.getFullYear(), event.start.getMonth(), event.start.getDate());
+    } else {
+      selectedDate = new Date(); // fallback
+    }
+    selectedDate.setHours(0, 0, 0, 0)
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    console.log("Parsed selected date:", selectedDate);
+    console.log("Today:", today);
+
+    if (selectedDate >= today) {
+      setOpen(true);
+      setMyDate(selectedDate);
+      setValue(event)
+
+    }
+  };
+
+
+
+
+
 
   const { className } = props
   if (!myEventsList || myEventsList.length === 0) {
@@ -63,17 +108,43 @@ const myEventsList = Data_Items.map((item) => ({
         events={myEventsList}
         defaultDate={new Date()}
         startAccessor="start"
-        popup={true}
         endAccessor="end"
+        popup={true}
+        selectable={true}
+        views={['month', 'agenda', 'day']}
+        toolbar={true}
+        onView={(view) => console.log('View changed:', view)}
+        onNavigate={(date, view, action) =>
+          console.log('Navigated:', { date, view, action })
+        }
+        onSelectEvent={handleView}
+        onSelectSlot={handeClick}
         components={{
           event: CustomEvent,
         }}
+        dayPropGetter={(date) => {
+          const today = new Date()
+          today.setHours(0, 0, 0, 0)
+
+          const current = new Date(date)
+          current.setHours(0, 0, 0, 0)
+
+          if (current < today) {
+            return {
+              style: {
+                backgroundColor: '#181926',
+                color: '#7f1d1d',
+                
+              },
+            }
+          }
+          return {}
+        }}
         style={{ height: '100%' }}
         className={className}
-        selectable={true}
-        onSelectEvent={(event) => console.log('Event selected:', event)}
-        onSelectSlot={(slotInfo) => { setOpen(true), setMyDate(slotInfo.end) , setEmpty() }}
       />
+
+
     </div>
   )
 }
