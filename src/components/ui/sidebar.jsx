@@ -23,6 +23,7 @@
     TooltipProvider,
     TooltipTrigger,
   } from "@/components/ui/tooltip"
+import { useTheme } from "next-themes";
 
   const SIDEBAR_COOKIE_NAME = "sidebar_state"
   const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -138,6 +139,7 @@
     ...props
   }) {
     const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+    const {theme}= useTheme()
 
     if (collapsible === "none") {
       return (
@@ -160,7 +162,7 @@
             data-sidebar="sidebar"
             data-slot="sidebar"
             data-mobile="true"
-            className={`${openMobile ? "bg-blue-200" : "bg-sidebar"}  text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden`}
+            className={`${theme ==="light" && openMobile ? "bg-blue-200" : "bg-sidebar"}  text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden`}
             style={
               {
                 "--sidebar-width": SIDEBAR_WIDTH_MOBILE
