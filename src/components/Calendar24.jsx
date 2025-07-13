@@ -12,15 +12,17 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { useTheme } from "next-themes"
 
 export function Calendar24({date, setDate ,onValueChange}) {
+  const {theme } = useTheme()
   const [open, setOpen] = React.useState(false)
 
 
   return (
     <div className="flex gap-4">
       <div className="flex flex-col gap-3">
-        <Label htmlFor="date-picker" className="px-1">
+        <Label  htmlFor="date-picker" className="px-1">
           Date
         </Label>
         <Popover open={open} onOpenChange={setOpen}>
@@ -28,7 +30,7 @@ export function Calendar24({date, setDate ,onValueChange}) {
             <Button
               variant="outline"
               id="date-picker"
-              className="w-32 justify-between font-normal"
+              className={`w-32 justify-between ${theme === "dark" ? "border-input" : "border-prymary text-gray-500"} border-2 font-normal`}
             >
               {date ? date.toLocaleDateString() : "Select date"}
               <ChevronDownIcon />
@@ -57,7 +59,7 @@ export function Calendar24({date, setDate ,onValueChange}) {
           step="1"
           defaultValue="10:30:00"
           onChange={(e) => onValueChange(e.target.value)}
-          className="bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
+          className={`${theme === "dark" ? "border-input " : "border-prymary text-gray-500"} border-2 bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none`}
         />
       </div>
     </div>

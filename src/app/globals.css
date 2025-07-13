@@ -69,9 +69,10 @@
 }
 
 :root {
-  --background: oklch(1.0000 0 0);
+  --headerTeaxt: #000000;
+  --background: oklch(93.082% 0.02107 232.325);
   --foreground: oklch(0.1884 0.0128 248.5103);
-  --card: oklch(0.9784 0.0011 197.1387);
+  --card: oklch(86.191% 0.05727 237.244 / 0.538);
   --card-foreground: oklch(0.1884 0.0128 248.5103);
   --popover: oklch(1.0000 0 0);
   --popover-foreground: oklch(0.1884 0.0128 248.5103);
@@ -85,7 +86,7 @@
   --accent-foreground: oklch(0.6723 0.1606 244.9955);
   --destructive: oklch(0.6188 0.2376 25.7658);
   --destructive-foreground: oklch(1.0000 0 0);
-  --border: oklch(0.9317 0.0118 231.6594);
+  --border: oklch(84.514% 0.07417 245.118);
   --input: oklch(0.9809 0.0025 228.7836);
   --ring: oklch(0.6818 0.1584 243.3540);
   --chart-1: oklch(0.6723 0.1606 244.9955);
@@ -93,7 +94,7 @@
   --chart-3: oklch(0.8214 0.1600 82.5337);
   --chart-4: oklch(0.7064 0.1822 151.7125);
   --chart-5: oklch(0.5919 0.2186 10.5826);
-  --sidebar: oklch(0.9784 0.0011 197.1387);
+  --sidebar: oklch(86.191% 0.05727 237.244 / 0.538);
   --sidebar-foreground: oklch(0.1884 0.0128 248.5103);
   --sidebar-primary: oklch(0.6723 0.1606 244.9955);
   --sidebar-primary-foreground: oklch(1.0000 0 0);
@@ -115,9 +116,16 @@
   --shadow-2xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
   --tracking-normal: 0em;
   --spacing: 0.25rem;
+  --past-bg: #88b7cee1;
+  --past-text: #7f1d1d;
+  --SidebarDown-bg: oklch(0.6723 0.1606 244.9955);
+  --sidedownText: #ffff;
+  --tableBg:oklch(0.6723 0.1606 244.9955);
 }
 
 .dark {
+  --tableBg:oklch(37.412% 0.00439 248.169);
+  --headerTeaxt:#cac5c5;
   --background: oklch(0 0 0);
   --foreground: oklch(0.9328 0.0025 228.7857);
   --card: oklch(0.2097 0.0080 274.5332);
@@ -162,6 +170,10 @@
   --shadow-lg: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 4px 6px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
   --shadow-xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 8px 10px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
   --shadow-2xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  --past-bg: #181926;
+  --past-text: #7f1d1d;
+  --SidebarDown-bg: #022638;
+  --sidedownText: #e0e0e0;
 }
 
 @theme inline {
@@ -215,12 +227,15 @@
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
+  --SidebarDown: var(--SidebarDown-bg);
+  --sidedownText: var(--sidedownText);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
     letter-spacing: var(--tracking-normal);
@@ -228,66 +243,106 @@
 }
 
 
+/* ------------------------------
+   Light Theme (default)
+------------------------------ */
+
 .rbc-month-view .rbc-day-bg {
-  background-color: var(--card); 
-  border: 1px solid #2d2d305e;
+  background-color: var(--card, #ffffff);
+  border: 1px solid #e2e8f0;
+  /* light border */
 }
 
-
 .rbc-day-bg.rbc-today {
-  background-color: #0a2542; 
-  border-right: 1px solid #2c2e31; 
-  border-bottom: 1px solid #25272a;
+  background-color: #0d8addbd;
+  color: #ffffff;
+  border-right: 1px solid #cbd5e1;
+  border-bottom: 1px solid #cbd5e1;
 }
 
 .rbc-toolbar {
   padding: 0.75rem;
   border-radius: 0.5rem;
-  background-color: var(--card); 
+  background-color: var(--card, #ffffff);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-
 .rbc-toolbar-label {
-  color: #f1f5f9; 
+  color: var(--foreground, #0f172a);
   font-weight: 600;
   font-size: 1.1rem;
 }
 
-
 .rbc-toolbar button {
-  color: #f1f5f9; 
-  border: 1px solid #334155; 
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
   padding: 0.4rem 0.8rem;
-  visibility: hidden;
   margin: 0 0.25rem;
   border-radius: 0.375rem;
   transition: all 0.2s ease-in-out;
+  visibility: hidden;
+  /* as in your original */
 }
 
-
 .rbc-toolbar button:hover {
-  background-color: #1e293b; 
-  color: #f8fafc;
-  border-color: #475569;
+  background-color: #e2e8f0;
+  color: #1e293b;
+  border-color: #94a3b8;
 }
 
 .rbc-btn-group button.rbc-active {
-  background-color: #3b82f6; 
-  color: #0f172a; 
-  border-color: #2563eb; 
+  background-color: #3b82f6;
+  color: white;
+  border-color: #2563eb;
   font-weight: 600;
 }
-
 
 .rbc-btn-group {
   margin: 0 0.5rem;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   width: 0px;
   height: 0px;
 }
 
+/* ------------------------------
+   Dark Theme Overrides
+------------------------------ */
+.dark .rbc-month-view .rbc-day-bg {
+  background-color: var(--card, #1e1e1e);
+  border: 1px solid #2d2d305e;
+}
+
+.dark .rbc-day-bg.rbc-today {
+  background-color: #0a2542;
+  border-right: 1px solid #2c2e31;
+  border-bottom: 1px solid #25272a;
+}
+
+.dark .rbc-toolbar {
+  background-color: var(--card, #1e1e1e);
+}
+
+.dark .rbc-toolbar-label {
+  color: #f1f5f9;
+}
+
+.dark .rbc-toolbar button {
+  color: #f1f5f9;
+  border: 1px solid #334155;
+}
+
+.dark .rbc-toolbar button:hover {
+  background-color: #1e293b;
+  color: #f8fafc;
+  border-color: #475569;
+}
+
+.dark .rbc-btn-group button.rbc-active {
+  background-color: #3b82f6;
+  color: #0f172a;
+  border-color: #2563eb;
+}

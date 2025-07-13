@@ -132,8 +132,8 @@ export const MyCalendar = (props) => {
           if (current < today) {
             return {
               style: {
-                backgroundColor: '#181926',
-                color: '#7f1d1d',
+                backgroundColor: 'var(--past-bg)',
+                color: 'var(--past-text)',
                 
               },
             }

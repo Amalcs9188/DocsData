@@ -5,6 +5,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { XIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { useTheme } from "next-themes"
 
 function Dialog({
   ...props
@@ -51,6 +52,7 @@ function DialogContent({
   showCloseButton = true,
   ...props
 }) {
+  const {theme} = useTheme()
   return (
     (<DialogPortal data-slot="dialog-portal">
       <DialogOverlay />

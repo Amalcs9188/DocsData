@@ -93,6 +93,7 @@ import {
 } from "@/components/ui/tabs"
 import { ArrowUpDown, CheckCircle, Search, Trash } from "lucide-react";
 import { Card } from "./ui/card";
+import { useTheme } from "next-themes";
 
 export const schema = z.object({
   id: z.number(),
@@ -315,6 +316,7 @@ export function DataTable({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   })
+  const {theme} = useTheme()  
 
   function handleDragEnd(event) {
     const { active, over } = event
@@ -332,19 +334,19 @@ export function DataTable({
       <div className="flex items-center justify-between lg:flex-row flex-col gap-3 px-4 lg:px-6">
         <div className=" flex gap-4 lg:flex-row flex-col">
           <Button
-            variant="outline"
+            variant={theme === "dark" ? "outline" : "default"}
             >
             <div value="outline">Appointment Schedules</div>
           </Button>
           <div
             className=" gap-3hidden **:data-[slot=badge]:size-5 **:data-[slot=badge]:rounded-full **:data-[slot=badge]:px-1 @4xl/main:flex">
           <div  value="outline" className="ml-2 relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#8C8C8C]" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#3b3b3b]" />
                 <Input
-                  placeholder="Search..."
+                  placeholder="Search....."
                   value={globalFilter ?? ""}
                   onChange={(event) => setGlobalFilter(event.target.value)}
-                  className="pl-10 rounded-2xl border-none shadow-none bg-white placeholder:text-[#8C8C8C]"
+                  className="pl-10 rounded-2xl border-none shadow-none bg-blue-200 placeholder:text-[#3f3f3f]"
                 />
               </div>
           </div>
@@ -353,7 +355,7 @@ export function DataTable({
         <div className="flex items-center lg:flex-row flex-col gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
+              <Button variant={theme === "dark" ? "outline" : "default"} size="sm">
                 <IconLayoutColumns />
                 <span className="hidden lg:inline">Customize Columns</span>
                 <span className="lg:hidden">Columns</span>
@@ -395,12 +397,12 @@ export function DataTable({
             id={sortableId}
             >
             <Table >
-              <TableHeader className="bg-muted sticky top-0 z-10">
+              <TableHeader style={{ background: 'var(--tableBg)' }} className=" sticky top-0 z-10">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                       return (
-                        (<TableHead key={header.id} colSpan={header.colSpan}>
+                        (<TableHead className={`${theme === "dark" ? "text-gray-200" : "text-gray-100"}`} key={header.id} colSpan={header.colSpan}>
                           {header.isPlaceholder
                             ? null
                             : flexRender(header.column.columnDef.header, header.getContext())}

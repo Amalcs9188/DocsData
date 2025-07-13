@@ -2,6 +2,9 @@
 
 import * as React from 'react'
 import * as Popover from '@radix-ui/react-popover'
+import { useTheme } from 'next-themes'
+import { ChevronDownIcon } from 'lucide-react'
+import { Button } from './ui/button'
 
 export const SearchableSelect = ({
   items,
@@ -14,6 +17,7 @@ export const SearchableSelect = ({
   const [open, setOpen] = React.useState(false)
   const [search, setSearch] = React.useState('')
   const inputRef = React.useRef(null)
+  const {theme}=useTheme()
 
   const selectedItem = items.find((item) => String(item.id) === String(value))
 
@@ -34,15 +38,18 @@ export const SearchableSelect = ({
     }
   }, [open])
 
+
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger asChild>
-        <button
+        <Button
+          variant="outline"
           disabled={disabled}
-          className={`h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-left text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+          className={`h-10 w-full flex justify-between items-center rounded-md border ${theme === 'dark' ? 'border-input' : 'border-primary text-gray-500'}  bg-background px-3 py-2 text-left text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
         >
           {selectedItem ? selectedItem.name : value || placeholder}
-        </button>
+           <ChevronDownIcon className="size-4  opacity-50" />
+        </Button>
       </Popover.Trigger>
 
       <Popover.Portal>
@@ -53,7 +60,7 @@ export const SearchableSelect = ({
           sideOffset={4}
           onOpenAutoFocus={(e) => e.preventDefault()}
           onWheel={(e) => e.stopPropagation()}
-          className="z-[999] mt-1 min-w-72 w-[var(--radix-popover-trigger-width)] rounded-md border-2 border-input bg-popover p-2 text-popover-foreground shadow-md pointer-events-auto touch-auto"
+          className="z-[999] bg-background relative mt-1 min-w-72 w-[var(--radix-popover-trigger-width)] rounded-md border-2 border-input  p-2 text-popover-foreground shadow-md pointer-events-auto touch-auto"
         >
           <input
             ref={inputRef}
@@ -64,7 +71,8 @@ export const SearchableSelect = ({
             onMouseDown={(e) => e.stopPropagation()}
             className="mb-2 w-full bg-background rounded-md border border-input px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
           />
-
+         
+ 
           {/* ✅ Scrollable container with mobile support */}
           <div
             className="relative max-h-60 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-thumb-muted-foreground scrollbar-track-transparent -mx-2 px-2"

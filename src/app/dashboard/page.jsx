@@ -31,11 +31,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Calendar24 } from "@/components/Calendar24";
+import { useTheme } from "next-themes";
 
 export default function Page() {
 
 
   const { Data_Items,setData_Items,  onSubmitData, selectedRow, setSelectedRow, open, setopen } = useDocContext();
+  const {theme} = useTheme();
 
 
   const Data = z.object({
@@ -179,7 +181,6 @@ export default function Page() {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="flex flex-col w-full gap-4">
                 <div className="flex flex-col items-start gap-4 w-full">
-                  <Label htmlFor="link">Select Date</Label>
                   <p>{form.formState.errors.date?.message}</p>
                   <Calendar24
                     onValueChange={(val) => form.setValue("time", val)}
@@ -199,7 +200,7 @@ export default function Page() {
 
                 </div>
                 <div className="flex flex-col items-start gap-4 w-full">
-                  <Label htmlFor="link">Select Doctor</Label>
+                  <Label  htmlFor="link">Select Doctor</Label>
                   <SearchableSelect
                     items={DoctorNames}
                     placeholder="Select a doctor"
@@ -219,9 +220,9 @@ export default function Page() {
                   />
                 </div>
                 <div className="flex items-end  gap-4 w-full">
-                  <Select onValueChange={(val) => form.setValue("status", val)}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a status" />
+                  <Select className={`${theme === 'dark' ? 'border-input' : 'border-primary '}`} onValueChange={(val) => form.setValue("status", val)}>
+                    <SelectTrigger className={`${theme === 'dark' ? 'border-input' : 'border-primary'}`}>
+                      <SelectValue  defaultValue={`${form.watch("status") || "Pending"}`} placeholder="Select a status" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Pending">Pending</SelectItem>
@@ -229,7 +230,7 @@ export default function Page() {
                     </SelectContent>
                   </Select>
                 </div>
-                <Button variant="outline" type="submit">
+                <Button variant={`${theme === 'dark' ? 'outline' : 'default'}`} type="submit">
                   Submit
                 </Button>
               </form>
