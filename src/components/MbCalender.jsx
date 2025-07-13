@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { format, addDays, subDays } from 'date-fns'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
@@ -9,15 +9,12 @@ import { Card } from './ui/card' // Make sure you have a Card component or repla
 import { useDocContext } from '@/app/context/MyContext'
 
 export const MobileCalendar = ({ setMyDate, handleMbSet }) => {
-
   const { Data_Items , setopen} = useDocContext();
-
   const touchStartX = useRef(0)
   const touchEndX = useRef(0)
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [showFullCalendar, setShowFullCalendar] = useState(false)
-
-
+  
   const filterdDate = Data_Items.filter((item) => {
     const itemDate = new Date(item.date)
     return itemDate.toDateString() === selectedDate.toDateString()

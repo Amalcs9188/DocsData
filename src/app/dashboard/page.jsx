@@ -120,7 +120,7 @@ export default function Page() {
         <div className=" fixed top-0 md:static w-full  lg:static"><SiteHeader /></div>
         <div className="flex mt-5 md:mt-0 flex-1 flex-col">
           <div className="@container/main flex flex-1 flex-col gap-2">
-            <div className="flex flex-col gap-4 w-full py-4 md:gap-6 md:py-6">
+            <div className="flex flex-col gap-4 w-full py-8 md:gap-6 md:py-6">
               <SidebarDown setOpen={setopen} reset={form.reset} />
               <SectionCards />
               <div className=" hidden md:block">
