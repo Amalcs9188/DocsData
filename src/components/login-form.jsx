@@ -9,6 +9,7 @@ import Image from "next/image"
 import { toast } from "sonner"
 import { useState } from "react"
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 export function LoginForm({
   className,
   ...props
@@ -24,8 +25,10 @@ export function LoginForm({
       return;
     }
     if (email === "staff@clinic.com" && password === "123456") {
+      
+      Cookies.set("token", email);
       toast.success("Login successful!");
-      router.push("/calenderView");
+      router.push("/dashboard");
 
 
     } else {

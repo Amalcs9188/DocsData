@@ -28,6 +28,7 @@ const fakeData = [
 export const MyProvider = ({ children }) => {
   const [selectedRow, setSelectedRow] = useState(null);
   const [mbId, setmbId] = useState(null);
+  const [isLogin, setisLogin] = useState(false);
   const [open, setopen] = useState();
   const [Data_Items, setData_Items] = useState(() => {
     if (typeof window !== "undefined") {
@@ -100,7 +101,8 @@ export const MyProvider = ({ children }) => {
     setSelectedRow,
     open,
     setopen,
-    mbId, setmbId
+    mbId, setmbId,
+    isLogin, setisLogin
   };
    
   return (
