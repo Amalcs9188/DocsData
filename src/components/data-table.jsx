@@ -91,7 +91,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
-import { ArrowUpDown, CheckCircle, Search } from "lucide-react";
+import { ArrowUpDown, CheckCircle, Search, Trash } from "lucide-react";
 import { Card } from "./ui/card";
 
 export const schema = z.object({
@@ -156,6 +156,7 @@ function DraggableRow({
 export function DataTable({
   data: initialData,
   onEdit,
+  onDelete,
 }) {
   const [data, setData] = React.useState(() => initialData)
   React.useEffect(() => {
@@ -270,6 +271,14 @@ export function DataTable({
                 size={16}
                 onClick={() => onEdit(row.original.id, "edit")}
                 className="hover:text-yellow-500 cursor-pointer text-green-600"
+              />
+            </div>
+            {/* <Trash size={44}  strokeWidth={3} absoluteStrokeWidth /> */}
+            <div className="button-transition flex items-center">
+              <Trash
+                size={16}
+                onClick={() => onDelete(row.original.id, "edit")}
+                className="hover:text-yellow-500 cursor-pointer text-red-600"
               />
             </div>
           </div>

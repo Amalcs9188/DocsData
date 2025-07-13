@@ -35,7 +35,7 @@ import { Calendar24 } from "@/components/Calendar24";
 export default function Page() {
 
 
-  const { Data_Items, mbId, localClear, onSubmitData, selectedRow, setSelectedRow, open, setopen } = useDocContext();
+  const { Data_Items,setData_Items,  onSubmitData, selectedRow, setSelectedRow, open, setopen } = useDocContext();
 
 
   const Data = z.object({
@@ -77,8 +77,18 @@ export default function Page() {
     }
   }
 
-const handleMbSet =(id)=>{
- console.log(id);
+  const onDelete = (id) => {
+    const row = Data_Items.find((item) => item.id === id);
+    console.log("row", row);
+
+    if (row) {
+      const updatedItems = Data_Items.filter((item) => item.id !== id);
+      setData_Items(updatedItems);
+    }
+  }
+
+  const handleMbSet = (id) => {
+    console.log(id);
     const row = Data_Items.find((item) => item.id === id);
     console.log("row", row);
 
@@ -92,7 +102,7 @@ const handleMbSet =(id)=>{
 
 
     }
-}
+  }
 
   console.log(form.watch("time"));
   const onSubmit = (data) => {
@@ -142,17 +152,17 @@ const handleMbSet =(id)=>{
               </div>
               <div className="px-4 lg:px-6"></div>
               {Data_Items.length > 0 && (
-                <DataTable data={Data_Items} onEdit={handleEdit} />
+                <DataTable data={Data_Items} onEdit={handleEdit} onDelete={onDelete} />
               )}
             </div>
           </div>
           <Dialog
-            key={selectedRow?.id || "new"} 
+            key={selectedRow?.id || "new"}
             open={open}
             onOpenChange={(val) => {
               setopen(val);
               if (!val) {
-                form.reset(defaultValues); 
+                form.reset(defaultValues);
                 setSelectedRow(null);
               }
             }}
