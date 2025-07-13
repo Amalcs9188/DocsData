@@ -388,7 +388,7 @@ export function DataTable({
       <TabsContent
         value="outline"
         className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6">
-        <div className="overflow-hidden rounded-lg border">
+        <div className={`overflow-hidden rounded-lg border-2 ${theme === "dark" ? "" :"border-primary "} `}>
           <DndContext
             collisionDetection={closestCenter}
             modifiers={[restrictToVerticalAxis]}

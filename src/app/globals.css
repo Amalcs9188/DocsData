@@ -70,9 +70,9 @@
 
 :root {
   --headerTeaxt: #000000;
-  --background: oklch(93.082% 0.02107 232.325);
+  --background: oklch(87.682% 0.0536 234.621);
   --foreground: oklch(0.1884 0.0128 248.5103);
-  --card: oklch(86.191% 0.05727 237.244 / 0.538);
+  --card: oklch(78.372% 0.1089 239.581 / 0.538);
   --card-foreground: oklch(0.1884 0.0128 248.5103);
   --popover: oklch(1.0000 0 0);
   --popover-foreground: oklch(0.1884 0.0128 248.5103);
@@ -94,7 +94,7 @@
   --chart-3: oklch(0.8214 0.1600 82.5337);
   --chart-4: oklch(0.7064 0.1822 151.7125);
   --chart-5: oklch(0.5919 0.2186 10.5826);
-  --sidebar: oklch(86.191% 0.05727 237.244 / 0.538);
+  --sidebar: oklch(79.726% 0.09795 238.729 / 0.538);
   --sidebar-foreground: oklch(0.1884 0.0128 248.5103);
   --sidebar-primary: oklch(0.6723 0.1606 244.9955);
   --sidebar-primary-foreground: oklch(1.0000 0 0);
