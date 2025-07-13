@@ -8,10 +8,10 @@ import { ArrowBigLeftDash, ArrowBigRightDash, CalendarDays } from 'lucide-react'
 import { Card } from './ui/card' // Make sure you have a Card component or replace with <div>
 import { useDocContext } from '@/app/context/MyContext'
 
-export const MobileCalendar = ({setMyDate,handleMbSet}) => {
+export const MobileCalendar = ({ setMyDate, handleMbSet }) => {
 
-  const { Data_Items, setopen} = useDocContext();
-  
+  const { Data_Items , setopen} = useDocContext();
+
   const touchStartX = useRef(0)
   const touchEndX = useRef(0)
   const [selectedDate, setSelectedDate] = useState(new Date())
@@ -41,9 +41,9 @@ export const MobileCalendar = ({setMyDate,handleMbSet}) => {
 
     if (Math.abs(deltaX) > 50) {
       if (deltaX < 0) {
-        handleNext() 
+        handleNext()
       } else {
-        handlePrev() 
+        handlePrev()
       }
     }
   }
@@ -55,25 +55,37 @@ export const MobileCalendar = ({setMyDate,handleMbSet}) => {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <CalendarDays  onClick={() => setShowFullCalendar(!showFullCalendar)}  size={32} strokeWidth={2.5} absoluteStrokeWidth />
-        <Card  className="w-full flex justify-around items-center flex-row p-4">
+        <CalendarDays onClick={() => setShowFullCalendar(!showFullCalendar)} size={32} strokeWidth={2.5} absoluteStrokeWidth />
+        <Card className="w-full flex justify-around items-center flex-row p-4">
           <button onClick={handlePrev}><ArrowBigLeftDash /></button>
-          <span  onClick={()=>{format(selectedDate,  'yyyy-MM-dd')>= Date.now() && setopen(true) ,format(selectedDate,  'yyyy-MM-dd')>= Date.now() &&  setMyDate(format(selectedDate,  'yyyy-MM-dd'))}} className="text-lg font-semibold">
+          <span
+            onClick={() => {
+              const selectedDateString = format(selectedDate, 'yyyy-MM-dd')
+              const todayString = format(new Date(), 'yyyy-MM-dd')
+
+              if (selectedDateString >= todayString) {
+                setopen(true)
+                setMyDate(selectedDateString)
+              }
+            }}
+            className="text-lg font-semibold"
+          >
+
             {format(selectedDate, 'PP')}
             <br />{
 
               filterdDate.length > 0 ? (
                 filterdDate.map((item) => (
-                  <div onClick={()=>{ handleMbSet(item.id)}} key={item.id}>
+                  <div onClick={() => { handleMbSet(item.id) }} key={item.id}>
                     <p>{item.patientName}</p>
                     <p>{item.time}</p>
                     <hr />
                   </div>
                 ))
               )
-              : (
-                <p>No appointments</p>
-              )
+                : (
+                  <p>No appointments</p>
+                )
             }
           </span>
           <button onClick={handleNext}><ArrowBigRightDash /></button>
@@ -92,7 +104,7 @@ export const MobileCalendar = ({setMyDate,handleMbSet}) => {
           <DayPicker
             mode="single"
             selected={selectedDate}
-            onSelect={(date) =>{ date && setSelectedDate(date); }}
+            onSelect={(date) => { date && setSelectedDate(date); }}
           />
         </div>
       )}

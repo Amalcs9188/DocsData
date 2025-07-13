@@ -7,7 +7,7 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 import SidebarDown from "@/components/SidebarDown";
 import { MyCalendar } from "@/components/calender";
-import { MobileCalendar } from "../../components/MbCalender";
+import {  MobileCalendar } from "../../components/MbCalender";
 import {
   Dialog,
   DialogContent,
