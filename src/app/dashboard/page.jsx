@@ -136,7 +136,7 @@ const handleMbSet =(id)=>{
                   }
                 />
               </div>
-              <button className="mt-2 underline text-blue-500" onClick={localClear}>clear</button>
+              {/* <button className="mt-2 underline text-blue-500" onClick={localClear}>clear</button> */}
               <div className="block md:hidden ">
                 <MobileCalendar handleMbSet={handleMbSet} setMyDate={(date) => { form.setValue("date", date) }} setOpen={setopen} />
               </div>
@@ -147,12 +147,12 @@ const handleMbSet =(id)=>{
             </div>
           </div>
           <Dialog
-            key={selectedRow?.id || "new"} // 
+            key={selectedRow?.id || "new"} 
             open={open}
             onOpenChange={(val) => {
               setopen(val);
               if (!val) {
-                form.reset(defaultValues); // 
+                form.reset(defaultValues); 
                 setSelectedRow(null);
               }
             }}

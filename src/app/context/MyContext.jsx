@@ -1,6 +1,7 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
 import { DoctorNames, patientItems } from "../data";
+import { toast } from "sonner";
 
 const DocContext = createContext();
 
@@ -39,58 +40,68 @@ export const MyProvider = ({ children }) => {
     return [];
   });
   useEffect(() => {
-    
-  console.log(Data_Items);
-  
+
+    console.log(Data_Items);
+
   }, [Data_Items]);
 
   useEffect(() => {
     setTimeout(() => {
-        localStorage.setItem("Data_Items", JSON.stringify(Data_Items));
+      localStorage.setItem("Data_Items", JSON.stringify(Data_Items));
     }, 1000);
   }, [Data_Items]);
 
-  const localClear =()=>{
+  const localClear = () => {
     localStorage.removeItem("Data_Items");
     setData_Items([]);
   }
   const onSubmitData = (data) => {
-      const { patientName, assignedDoctor } = data;
-      console.log(data);
-  
-      const p_name = patientItems.find((item) => item.id == patientName);
-      const doc_name = DoctorNames.find((item) => item.id == assignedDoctor);
-  
-      if (selectedRow) {
-        const updatedData = {
-          ...data,
-          patientName: p_name?.name ?? patientName,
-          assignedDoctor: doc_name?.name ?? assignedDoctor,
-        };
-  
-        const updatedItems = Data_Items.map((item) =>
-          item.id === selectedRow.id ? { ...item, ...updatedData } : item
-        );
-  
-        setData_Items(updatedItems);
-      } else {
-        const uniqueId =
-          Date.now().toString(36) + Math.random().toString(36).substring(2);
-  
+    const { patientName, assignedDoctor } = data;
+    console.log(data);
+
+    const p_name = patientItems.find((item) => item.id == patientName);
+    const doc_name = DoctorNames.find((item) => item.id == assignedDoctor);
+
+    if (selectedRow) {
+      const updatedData = {
+        ...data,
+        patientName: p_name?.name ?? patientName,
+        assignedDoctor: doc_name?.name ?? assignedDoctor,
+      };
+
+      const updatedItems = Data_Items.map((item) =>
+        item.id === selectedRow.id ? { ...item, ...updatedData } : item
+      );
+
+      setopen(false);
+      setData_Items(updatedItems);
+    } else {
+      const uniqueId =
+        Date.now().toString(36) + Math.random().toString(36).substring(2);
+      if (data.date < new Date().toISOString().split('T')[0]) {
+
+        toast.error("Date cannot be in the past.");
+        setopen(true);
+      }
+      else {
+
         const newData = {
           ...data,
           id: uniqueId,
           patientName: p_name?.name ?? data.patientName,
           assignedDoctor: doc_name?.name ?? data.assignedDoctor,
         };
-  
+
         setData_Items((prev) => [...prev, newData]);
+
+        setopen(false);
       }
-  
-      setopen(false);
-      form.reset(defaultValues);
-      setSelectedRow(null);
-    };
+    }
+
+
+    form.reset(defaultValues);
+    setSelectedRow(null);
+  };
 
   const contextValue = {
     Data_Items,
@@ -104,7 +115,7 @@ export const MyProvider = ({ children }) => {
     mbId, setmbId,
     isLogin, setisLogin
   };
-   
+
   return (
     <DocContext.Provider value={contextValue}>
       {children}

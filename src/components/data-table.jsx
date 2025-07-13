@@ -329,7 +329,7 @@ export function DataTable({
           </Button>
           <div
             className=" gap-3hidden **:data-[slot=badge]:size-5 **:data-[slot=badge]:rounded-full **:data-[slot=badge]:px-1 @4xl/main:flex">
-          <div value="outline" className="ml-2">
+          <div  value="outline" className="ml-2 relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#8C8C8C]" />
                 <Input
                   placeholder="Search..."
