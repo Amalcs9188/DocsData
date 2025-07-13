@@ -181,7 +181,7 @@ export default function Page() {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="flex flex-col w-full gap-4">
                 <div className="flex flex-col items-start gap-4 w-full">
-                  <p>{form.formState.errors.date?.message}</p>
+                 
                   <Calendar24
                     onValueChange={(val) => form.setValue("time", val)}
                     date={form.watch("date") ? new Date(form.watch("date")) : undefined}
@@ -197,6 +197,7 @@ export default function Page() {
                       }
                     }}
                   />
+                   <p className="text-red-500 text-sm ms-2">{form.formState.errors.date?.message}</p>
 
                 </div>
                 <div className="flex flex-col items-start gap-4 w-full">
@@ -209,6 +210,7 @@ export default function Page() {
                       form.setValue("assignedDoctor", val)
                     }
                   />
+                  <p className="text-red-500 text-sm ms-2">{ form.formState.errors.assignedDoctor?.message}</p>
                 </div>
                 <div className="flex flex-col items-start gap-4 w-full">
                   <Label htmlFor="link">Select patient</Label>
@@ -218,6 +220,7 @@ export default function Page() {
                     value={form.watch("patientName") || ""}
                     onValueChange={(val) => form.setValue("patientName", val)}
                   />
+                  <p className="text-red-500 text-sm ms-2">{ form.formState.errors.patientName?.message}</p>
                 </div>
                 <div className="flex items-end  gap-4 w-full">
                   <Select className={`${theme === 'dark' ? 'border-input' : 'border-primary '}`} onValueChange={(val) => form.setValue("status", val)}>
@@ -229,6 +232,7 @@ export default function Page() {
                       <SelectItem value="Completed">Completed</SelectItem>
                     </SelectContent>
                   </Select>
+                  <p className="text-red-500">{ form.formState.errors.status?.message}</p>
                 </div>
                 <Button variant={`${theme === 'dark' ? 'outline' : 'default'}`} type="submit">
                   Submit

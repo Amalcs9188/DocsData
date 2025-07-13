@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
         <MyProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             {children}
-            <Toaster />
+            <Toaster position="top-right" richColors  />
           </ThemeProvider>
         </MyProvider>
       </body>
