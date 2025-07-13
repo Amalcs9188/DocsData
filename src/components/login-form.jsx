@@ -49,7 +49,7 @@ export function LoginForm({
               </div>
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
-                <Input onChange={(e) => setEmail(e.target.value)} id="email" type="email" placeholder="m@example.com" required />
+                <Input onChange={(e) => setEmail(e.target.value)} id="email" type="email" placeholder="staff@clinic.com" required />
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center">
