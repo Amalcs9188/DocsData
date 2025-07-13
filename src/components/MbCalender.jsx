@@ -11,6 +11,7 @@ import { useDocContext } from '@/app/context/MyContext'
 export const MobileCalendar = ({setMyDate,handleMbSet}) => {
 
   const { Data_Items, setopen} = useDocContext();
+  
   const touchStartX = useRef(0)
   const touchEndX = useRef(0)
   const [selectedDate, setSelectedDate] = useState(new Date())
@@ -57,7 +58,7 @@ export const MobileCalendar = ({setMyDate,handleMbSet}) => {
         <CalendarDays  onClick={() => setShowFullCalendar(!showFullCalendar)}  size={32} strokeWidth={2.5} absoluteStrokeWidth />
         <Card  className="w-full flex justify-around items-center flex-row p-4">
           <button onClick={handlePrev}><ArrowBigLeftDash /></button>
-          <span  onClick={()=>{ setopen(true) , setMyDate(format(selectedDate,  'yyyy-MM-dd'))}} className="text-lg font-semibold">
+          <span  onClick={()=>{format(selectedDate,  'yyyy-MM-dd')>= Date.now() && setopen(true) ,format(selectedDate,  'yyyy-MM-dd')>= Date.now() &&  setMyDate(format(selectedDate,  'yyyy-MM-dd'))}} className="text-lg font-semibold">
             {format(selectedDate, 'PP')}
             <br />{
 
